@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo de Serviços — Formatura 1º Ano</title>
+  <style>
+    /* 🌟 Estilo geral */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* 🎓 Cabeçalho com brilho */
+    header {
+      background: linear-gradient(90deg, #005bea, #00c6fb);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #fff, #00c6fb, #fff);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: brilho 4s linear infinite;
+    }
+
+    @keyframes brilho {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    /* 💬 Banner inspirador */
+    .banner {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: pulse 3s infinite;
+    }
+
+    .banner h2 {
+      margin: 0;
+      color: #005bea;
+      font-size: 1.6em;
+      font-weight: 600;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px rgba(0, 198, 251, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(0, 198, 251, 0.8); }
+      100% { box-shadow: 0 0 10px rgba(0, 198, 251, 0.5); }
+    }
+
+    /* 💼 Seções principais */
+    section {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      color: #005bea;
+      border-left: 5px solid #00c6fb;
+      padding-left: 10px;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    /* 💼 Serviços */
+    .servico {
+      background: #f8f9ff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      border-left: 4px solid #00c6fb;
+    }
+
+    .servico:hover {
+      transform: translateY(-5px);
+      background: #eaf6ff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .servico h3 {
+      color: #333;
+      margin-top: 0;
+    }
+
+    .valor {
+      color: #00b894;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    /* 🖼️ Galeria (fundo transparente e setas) */
+    .galeria-container {
+      width: 100%;
+      max-width: 500px;
+      height: 350px;
+      margin: 25px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      background: transparent; /* fundo transparente */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .galeria-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 0;
+      transform: scale(1);
+    }
+
+    .galeria-container img.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Setas de navegação */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.6em;
+      color: #00c6fb;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.18s;
+      z-index: 5;
+    }
+
+    .arrow:hover {
+      background: #00c6fb;
+      color: white;
+    }
+
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
+
+    /* Zoom (fundo transparente): clone da imagem */
+    .zoom {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 9999;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 16px;
+      cursor: zoom-out;
+      background: transparent;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    /* ✨ Rodapé */
+    footer {
+      text-align: center;
+      background: linear-gradient(90deg, #005bea, #00c6fb);
+      color: white;
+      padding: 25px;
+      margin-top: 60px;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+
+    footer p {
+      margin: 5px 0;
+      font-size: 0.95em;
+    }
+
+    /* 🔄 Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 📱 Responsividade */
+    @media (max-width: 700px) {
+      header h1 { font-size: 2em; }
+      section { padding: 25px; }
+      .galeria-container { height: 250px; }
+      .arrow { width: 36px; height: 36px; font-size: 1.2em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎓 Turma 1º Ano — Informática 💻</h1>
+    <p>Catálogo de Serviços — Contribua com nossa formatura e ajude a realizar nosso sonho! 💙</p>
+  </header>
+
+  <div class="banner">
+    <h2>💫 Cada serviço é um passo a mais rumo à nossa formatura dos sonhos 🎉</h2>
+  </div>
+
+  <!-- 🏷️ Serviços -->
+  <section>
+    <h2>💼 Serviços</h2>
+    <div class="servico">
+      <h3>🖼️ Criação de Posts para Instagram</h3>
+      <p>Artes personalizadas para o feed e stories. Inclui até 3 revisões e entrega em formato PNG/JPG.</p>
+      <p><strong>Prazo:</strong> 1 a 2 dias úteis</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>🎉 Cartão de Aniversário Digital</h3>
+      <p>Convite ou cartão animado personalizado com nome e data, pronto para envio via WhatsApp e redes sociais.</p>
+      <p><strong>Prazo:</strong> até 24h</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>📝 Criação de Currículos Profissionais</h3>
+      <p>Currículo moderno e visual em formato PDF, com layout personalizado e revisão de texto.</p>
+      <p><strong>Prazo:</strong> até 2 dias úteis</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>📊 Criação de Apresentações (Slides)</h3>
+      <p>Apresentações visuais para trabalhos, aulas ou propostas comerciais, com design moderno e diagramação profissional.</p>
+      <p><strong>Prazo:</strong> até 3 dias úteis</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>🧾 Inscrição em Concursos e Processos Seletivos</h3>
+      <p>Serviço de apoio para preencher corretamente inscrições, com conferência de dados e envio do comprovante.</p>
+      <p><strong>Prazo:</strong> até 24h</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>📱 Gerenciamento de Redes Sociais</h3>
+      <p>Organização, agendamento e acompanhamento de postagens com identidade visual padronizada.</p>
+      <p><strong>Prazo:</strong> conforme plano contratado</p>
+      <p class="valor">Valor: R$ 100,00/mês</p>
+    </div>
+
+    <div class="servico">
+      <h3>🔗 Criação de Link na Bio</h3>
+      <p>Criação de página personalizada com seus principais links, redes e contatos.</p>
+      <p><strong>Prazo:</strong> até 24h</p>
+      <p class="valor">Valor: R$ 10,00</p>
+    </div>
+  </section>
+
+  <!-- 📦 Pacotes -->
+  <section>
+    <h2>📦 Pacotes</h2>
+    <div class="servico">
+      <h3>📦 Pacote Instagram Básico</h3>
+      <p>5 posts + 2 stories personalizados para impulsionar o engajamento do seu perfil.</p>
+      <p class="valor">Valor: R$ 50,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>✨ Pacote de Reestruturação do Instagram</h3>
+      <p>Inclui criação de link na bio personalizado, atualização do perfil e integração com WhatsApp.</p>
+      <p class="valor">Valor: R$ 50,00</p>
+    </div>
+  </section>
+
+  <!-- 🖼️ Galeria -->
+  <section>
+    <h2>📸 Galeria de Projetos</h2>
+
+    <h3>🔗 Link na Bio</h3>
+    <div class="galeria-container" id="bio-gallery">
+      <button class="arrow arrow-left" aria-label="Anterior">❮</button>
+      <button class="arrow arrow-right" aria-label="Próximo">❯</button>
+      <img src="imagens/bio1.png" alt="Link Bio 1">
+      <img src="imagens/bio2.png" alt="Link Bio 2">
+      <img src="imagens/bio3.png" alt="Link Bio 3">
+      <img src="imagens/bio4.png" alt="Link Bio 4">
+      <img src="imagens/bio5.png" alt="Link Bio 5">
+    </div>
+
+    <h3>🖼️ Posts do Instagram</h3>
+    <div class="galeria-container" id="post-gallery">
+      <button class="arrow arrow-left" aria-label="Anterior">❮</button>
+      <button class="arrow arrow-right" aria-label="Próximo">❯</button>
+      <img src="imagens/post1.png" alt="Post 1">
+      <img src="imagens/post2.jpg" alt="Post 2">
+      <img src="imagens/post3.png" alt="Post 3">
+      <img src="imagens/post4.png" alt="Post 4">
+      <img src="imagens/post5.png" alt="Post 5">
+      <img src="imagens/post6.png" alt="Post 6">
+    </div>
+
+    <h3>🎉 Cartões Comemorativos</h3>
+    <div class="galeria-container" id="cartao-gallery">
+      <button class="arrow arrow-left" aria-label="Anterior">❮</button>
+      <button class="arrow arrow-right" aria-label="Próximo">❯</button>
+      <img src="imagens/cartao1.png" alt="Cartão 1">
+      <img src="imagens/cartao2.png" alt="Cartão 2">
+      <img src="imagens/cartao3.png" alt="Cartão 3">
+      <img src="imagens/cartao4.png" alt="Cartão 4">
+      <img src="imagens/cartao5.png" alt="Cartão 5">
+      <img src="imagens/cartao6.png" alt="Cartão 6">
+    </div>
+  </section>
+
+  <footer>
+    <p>📞 Contato: informatica.eenovaaparecida@gmail.com | WhatsApp: (31) 99471-8000</p>
+    <p>Alunos do 1° Ano | © 2025 Escola Estadual Nova Aparecida</p>
+  </footer>
+
+  <script>
+    /* Inicializa uma galeria com rotação automática, setas funcionais e zoom transparente */
+    function initGallery(containerId, intervalMs = 4000) {
+      const gallery = document.getElementById(containerId);
+      if (!gallery) return;
+
+      const imgs = Array.from(gallery.querySelectorAll('img'));
+      if (imgs.length === 0) return;
+
+      const btnPrev = gallery.querySelector('.arrow-left');
+      const btnNext = gallery.querySelector('.arrow-right');
+
+      let index = 0;
+      let intervalHandle = null;
+
+      function show(i) {
+        imgs.forEach((img, idx) => {
+          if (idx === i) {
+            img.classList.add('active');
+            img.style.zIndex = 3;
+          } else {
+            img.classList.remove('active');
+            img.style.zIndex = 1;
+          }
+        });
+      }
+
+      function next() {
+        index = (index + 1) % imgs.length;
+        show(index);
+      }
+
+      function prev() {
+        index = (index - 1 + imgs.length) % imgs.length;
+        show(index);
+      }
+
+      // eventos de seta
+      if (btnNext) btnNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        next();
+        restartInterval();
+      });
+      if (btnPrev) btnPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        prev();
+        restartInterval();
+      });
+
+      // zoom transparente: clique na imagem clona e mostra no topo
+      imgs.forEach(img => {
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // se já houver zoom aberto, fecha
+          if (document.body.querySelector('.zoom')) {
+            const existing = document.body.querySelector('.zoom');
+            existing.remove();
+            return;
+          }
+          const clone = img.cloneNode(true);
+          clone.classList.add('zoom');
+          // garante que a imagem clonada apareça por cima
+          document.body.appendChild(clone);
+
+          // clicar na imagem ampliada fecha
+          clone.addEventListener('click', () => clone.remove());
+        });
+      });
+
+      function restartInterval() {
+        if (intervalHandle) {
+          clearInterval(intervalHandle);
+        }
+        intervalHandle = setInterval(next, intervalMs);
+      }
+
+      // inicia
+      show(index);
+      restartInterval();
+
+      // opcional: pausa a rotação quando o mouse entra, retoma quando sai
+      gallery.addEventListener('mouseenter', () => {
+        if (intervalHandle) clearInterval(intervalHandle);
+      });
+      gallery.addEventListener('mouseleave', () => {
+        restartInterval();
+      });
+    }
+
+    // inicializa todas as galerias
+    initGallery('bio-gallery', 4000);
+    initGallery('post-gallery', 4000);
+    initGallery('cartao-gallery', 4000);
+
+    // Fechar zoom ao clicar fora da imagem ampliada (opcional)
+    document.addEventListener('click', (e) => {
+      const zoom = document.querySelector('.zoom');
+      if (zoom && !zoom.contains(e.target)) {
+        zoom.remove();
+      }
+    });
+  </script>
+</body>
+</html>
