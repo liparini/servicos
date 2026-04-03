@@ -1,265 +1,924 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo de Serviços — Formatura 1º Ano</title>
-<style>
-  /* 🌟 Estilo geral */
-  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e3f2fd, #fce4ec); margin:0; padding:0; color:#333; overflow-x:hidden; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controle de Serviços Ópticos</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --purple: #7c3aed;
+      --border: #dbe3ef;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
 
-  /* 🎓 Cabeçalho com brilho */
-  header {
-    background: linear-gradient(90deg,#005bea,#00c6fb);
-    color:white; text-align:center; padding:60px 20px;
-    box-shadow:0 2px 15px rgba(0,0,0,0.2);
-    border-bottom-left-radius:50px; border-bottom-right-radius:50px;
-    position:relative; overflow:hidden;
-  }
-  header h1 {
-    margin:0; font-size:2.8em; font-weight:700; letter-spacing:1px;
-    background: linear-gradient(90deg,#fff,#00c6fb,#fff);
-    background-size:300%;
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    animation:brilho 4s linear infinite;
-  }
-  @keyframes brilho { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-  header p { font-size:1.2em; margin-top:10px; }
+    * { box-sizing: border-box; }
 
-  /* 💬 Banner inspirador */
-  .banner { text-align:center; background:#fff; padding:20px; margin:30px auto; max-width:800px;
-    border-radius:20px; box-shadow:0 4px 15px rgba(0,0,0,0.1); animation:pulse 3s infinite; }
-  .banner h2 { margin:0; color:#005bea; font-size:1.6em; font-weight:600; }
-  @keyframes pulse { 0%{box-shadow:0 0 10px rgba(0,198,251,0.5)}50%{box-shadow:0 0 25px rgba(0,198,251,0.8)}100%{box-shadow:0 0 10px rgba(0,198,251,0.5)} }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-  /* 💼 Seções principais */
-  section { max-width:1000px; margin:40px auto; background:white; padding:40px; border-radius:25px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.1); animation:fadeIn 1s ease; }
-  h2 { color:#005bea; border-left:5px solid #00c6fb; padding-left:10px; margin-bottom:25px; font-size:1.8em; }
+    header {
+      background: linear-gradient(135deg, #0f766e, #2563eb);
+      color: #fff;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
 
-  /* 💼 Serviços */
-  .servico { background:#f8f9ff; border-radius:15px; padding:20px; margin-bottom:20px; transition:all 0.3s ease; border-left:4px solid #00c6fb; }
-  .servico:hover { transform:translateY(-5px); background:#eaf6ff; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
-  .servico h3 { color:#333; margin-top:0; }
-  .valor { color:#00b894; font-weight:bold; font-size:1.1em; }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
 
-  /* 🖼️ Galeria */
-  .galeria-container { width:100%; max-width:500px; height:350px; margin:25px auto; overflow:hidden; border-radius:20px; background:transparent;
-    display:flex; align-items:center; justify-content:center; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-  .galeria-container img { width:100%; height:100%; object-fit:contain; display:none; position:absolute; top:0; left:0; border-radius:20px; cursor:pointer; }
-  .galeria-container .active { display:block; animation:fadeIn 0.5s ease; }
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
 
-  /* ✨ Rodapé melhorado */
-  footer {
-    background: linear-gradient(90deg,#005bea,#00c6fb); color:white;
-    padding:30px 20px; border-top-left-radius:40px; border-top-right-radius:40px;
-    box-shadow:0 -2px 10px rgba(0,0,0,0.2);
-  }
-  footer .footer-container { display:flex; flex-wrap:wrap; justify-content:space-around; max-width:1000px; margin:auto; }
-  footer .footer-item { margin:10px 20px; text-align:center; }
-  footer .footer-item h4 { margin-bottom:10px; font-size:1.1em; }
-  footer .footer-item p, footer .footer-item a { margin:5px 0; font-size:0.95em; color:white; text-decoration:none; }
-  footer .footer-item a:hover { text-decoration:underline; }
+    .container {
+      width: min(1380px, calc(100% - 32px));
+      margin: 24px auto 40px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 20px;
+    }
 
-  /* 🔘 Botões flutuantes */
-  .floating-buttons { position:fixed; bottom:25px; right:25px; display:flex; flex-direction:column; gap:15px; z-index:999; }
-  .floating-buttons a { width:55px; height:55px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1.6em; text-decoration:none; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:transform 0.3s ease, box-shadow 0.3s ease; }
-  .floating-buttons a:hover { transform:scale(1.1); box-shadow:0 6px 20px rgba(0,0,0,0.3); }
-  .whatsapp { background:#25d366; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
 
-  /* 🔄 Animações */
-  @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
 
-  /* 📱 Responsividade */
-  @media (max-width:700px) { header h1{font-size:2em;} section{padding:25px;} .galeria-container{height:250px;} footer .footer-container { flex-direction:column; } }
-</style>
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 14px 0 6px;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      margin-top: 18px;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+      margin-top: 10px;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .user-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      border-radius: 16px;
+      padding: 16px;
+      color: #fff;
+    }
+
+    .metric h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: bold;
+      opacity: 0.95;
+    }
+
+    .metric strong {
+      font-size: 24px;
+      display: block;
+      line-height: 1.2;
+    }
+
+    .m1 { background: linear-gradient(135deg, #16a34a, #15803d); }
+    .m2 { background: linear-gradient(135deg, #d97706, #b45309); }
+    .m3 { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+    .m4 { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #475569;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .status-montagem { background: var(--success); }
+    .status-surfacagem { background: var(--primary); }
+    .status-coloracao { background: var(--purple); }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions button {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 12px;
+      border-radius: 10px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+    }
+
+    .message {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .message.ok { color: var(--success); }
+    .message.error { color: var(--danger); }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .ranking-top {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .podium {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+
+    .podium h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .podium strong {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .money {
+      font-weight: bold;
+      color: var(--success);
+    }
+
+    @media (max-width: 1080px) {
+      .container { grid-template-columns: 1fr; }
+      .grid-4, .grid-3, .ranking-top { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Controle de Serviços Ópticos</h1>
+    <p>Registro de montagem, surfaçagem e coloração com quantidade, valor, ranking por funcionário e histórico completo.</p>
+  </header>
 
-<header>
-  <h1>🎓 Turma 1º Ano — Informática 💻</h1>
-  <p>Catálogo de Serviços — Contribua com nossa formatura e ajude a realizar nosso sonho! 💙</p>
-</header>
+  <main class="container">
+    <section class="card">
+      <h2>Novo lançamento</h2>
 
-<div class="banner">
-  <h2>💫 Cada serviço é um passo a mais rumo à nossa formatura dos sonhos 🎉</h2>
-</div>
+      <div class="user-box">
+        <button id="btnLogin" class="btn-primary">Entrar com Google</button>
+        <button id="btnLogout" class="btn-secondary" style="display:none;">Sair</button>
+      </div>
 
-<!-- 🏷️ Serviços existentes -->
-<section>
-  <h2>💼 Serviços</h2>
-  <div class="servico">
-    <h3>🖼️ Criação de Posts para Instagram</h3>
-    <p>Artes personalizadas para o feed e stories. Inclui até 3 revisões e entrega em formato PNG/JPG.</p>
-    <p><strong>Prazo:</strong> 1 a 2 dias úteis</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-  <div class="servico">
-    <h3>🎉 Cartão de Aniversário Digital</h3>
-    <p>Convite ou cartão animado personalizado com nome e data, pronto para envio via WhatsApp e redes sociais.</p>
-    <p><strong>Prazo:</strong> até 24h</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-  <div class="servico">
-    <h3>📝 Criação de Currículos Profissionais</h3>
-    <p>Currículo moderno e visual em formato PDF, com layout personalizado e revisão de texto.</p>
-    <p><strong>Prazo:</strong> até 2 dias úteis</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-  <div class="servico">
-    <h3>📊 Criação de Apresentações (Slides)</h3>
-    <p>Apresentações visuais para trabalhos, aulas ou propostas comerciais, com design moderno e diagramação profissional.</p>
-    <p><strong>Prazo:</strong> até 3 dias úteis</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-  <div class="servico">
-    <h3>🧾 Inscrição em Concursos e Processos Seletivos</h3>
-    <p>Serviço de apoio para preencher corretamente inscrições, com conferência de dados e envio do comprovante.</p>
-    <p><strong>Prazo:</strong> até 24h</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-  <div class="servico">
-    <h3>📱 Gerenciamento de Redes Sociais</h3>
-    <p>Organização, agendamento e acompanhamento de postagens com identidade visual padronizada.</p>
-    <p><strong>Prazo:</strong> conforme plano contratado</p>
-    <p class="valor">Valor: R$ 100,00/mês</p>
-  </div>
-  <div class="servico">
-    <h3>🔗 Criação de Link na Bio</h3>
-    <p>Criação de página personalizada com seus principais links, redes e contatos.</p>
-    <p><strong>Prazo:</strong> até 24h</p>
-    <p class="valor">Valor: R$ 10,00</p>
-  </div>
-</section>
+      <p id="userInfo" class="small">Faça login para registrar e visualizar os dados.</p>
 
-<!-- 📦 Pacotes existentes -->
-<section>
-  <h2>📦 Pacotes</h2>
-  <div class="servico">
-    <h3>📦 Pacote Instagram Básico</h3>
-    <p>5 posts + 2 stories personalizados para impulsionar o engajamento do seu perfil.</p>
-    <p class="valor">Valor: R$ 50,00</p>
-  </div>
-  <div class="servico">
-    <h3>✨ Pacote de Reestruturação do Instagram</h3>
-    <p>Inclui criação de link na bio personalizado, atualização do perfil e integração com WhatsApp.</p>
-    <p class="valor">Valor: R$ 50,00</p>
-  </div>
-</section>
+      <label for="nomeFuncionario">Funcionário</label>
+      <input id="nomeFuncionario" type="text" placeholder="Ex.: Hudson Felipe" />
 
-<!-- 🖼️ Galeria existente -->
-<section>
-  <h2>📸 Galeria de Projetos</h2>
+      <label for="dataLancamento">Data do lançamento</label>
+      <input id="dataLancamento" type="date" />
 
-  <h3>🔗 Link na Bio</h3>
-  <div class="galeria-container" id="bio-gallery">
-    <img src="imagens/bio1.png" alt="Link Bio 1">
-    <img src="imagens/bio2.png" alt="Link Bio 2">
-    <img src="imagens/bio3.png" alt="Link Bio 3">
-    <img src="imagens/bio4.png" alt="Link Bio 4">
-    <img src="imagens/bio5.png" alt="Link Bio 5">
-    <img src="imagens/bio6.png" alt="Link Bio 6">
-    <img src="imagens/bio7.png" alt="Link Bio 7">
-    <img src="imagens/bio8.png" alt="Link Bio 8">
-  </div>
+      <label for="tipoServico">Tipo de serviço</label>
+      <select id="tipoServico">
+        <option value="MONTAGEM">Montagem</option>
+        <option value="SURFACAGEM">Surfaçagem</option>
+        <option value="COLORACAO">Coloração</option>
+      </select>
 
-  <h3>🖼️ Posts do Instagram</h3>
-  <div class="galeria-container" id="post-gallery">
-    <img src="imagens/post1.png" alt="Post 1">
-    <img src="imagens/post2.jpg"  alt="Post 2">
-    <img src="imagens/post3.png" alt="Post 3">
-    <img src="imagens/post4.png" alt="Post 4">
-    <img src="imagens/post5.png" alt="Post 5">
-    <img src="imagens/post6.png" alt="Post 6">
-  </div>
+      <label for="quantidade">Quantidade</label>
+      <input id="quantidade" type="number" min="1" step="1" placeholder="Ex.: 10" />
 
-  <h3>🎉 Cartões Comemorativos</h3>
-  <div class="galeria-container" id="cartao-gallery">
-    <img src="imagens/cartao1.png" alt="Cartão 1">
-    <img src="imagens/cartao2.png" alt="Cartão 2">
-    <img src="imagens/cartao3.png" alt="Cartão 3">
-    <img src="imagens/cartao4.png" alt="Cartão4">
-    <img src="imagens/cartao5.png" alt="Cartão 5">
-    <img src="imagens/cartao6.png" alt="Cartão 6">
-  </div>
-</section>
+      <label for="valorUnitario">Valor unitário (R$)</label>
+      <input id="valorUnitario" type="number" min="0" step="0.01" placeholder="Ex.: 8.50" />
 
-<!-- Rodapé melhorado -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-item">
-      <h4>Contato</h4>
-      <p>📞 WhatsApp: (31) 99471-8000</p>
-      <p>✉️ Email: <a href="mailto:informatica.eenovaaparecida@gmail.com">informatica.eenovaaparecida@gmail.com</a></p>
-    </div>
-    <div class="footer-item">
-      <h4>Alunos</h4>
-      <p>1º Ano - Escola Estadual Nova Aparecida</p>
-    </div>
-    <div class="footer-item">
-      <h4>Direitos</h4>
-      <p>© 2025 Todos os direitos reservados</p>
-    </div>
-  </div>
-</footer>
+      <label for="observacao">Observação</label>
+      <textarea id="observacao" placeholder="Ex.: serviço especial, cliente específico, lote do dia..."></textarea>
 
-<!-- Botão flutuante WhatsApp -->
-<div class="floating-buttons">
-  <a href="#" class="whatsapp" id="whatsapp-btn">💬</a>
-</div>
+      <button id="btnSalvar" class="btn-primary">Salvar lançamento</button>
+      <button id="btnLimpar" class="btn-secondary">Limpar campos</button>
 
-<script>
-  // WhatsApp popup
-  const whatsappBtn = document.getElementById('whatsapp-btn');
-  whatsappBtn.addEventListener('click', ()=> {
-    window.open('https://wa.me/5531994718000', '_blank');
-  });
+      <div id="formMessage" class="message"></div>
 
-  // Galeria com zoom e setas
-  function initGalleryWithZoom(containerId, intervalMs=4000){
-    const container=document.getElementById(containerId);
-    if(!container)return;
-    const imgs=Array.from(container.querySelectorAll('img'));
-    let index=0;
-    function showSlide(i){ imgs.forEach((img,idx)=>img.classList.toggle('active',idx===i)); }
-    showSlide(index);
-    let interval=setInterval(()=>{ index=(index+1)%imgs.length; showSlide(index); }, intervalMs);
+      <p class="small">
+        O sistema calcula automaticamente o valor total com base em quantidade × valor unitário e gera o ranking por produção no período.
+      </p>
+    </section>
 
-    imgs.forEach((img,idx)=>{
-      img.addEventListener('click', e=>{
-        e.stopPropagation();
-        const overlay=document.createElement('div');
-        overlay.style.cssText=`position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:1000;`;
-        document.body.appendChild(overlay);
-        const zoomImg=img.cloneNode(true);
-        zoomImg.style.cssText="max-width:90%;max-height:90%;border-radius:10px;cursor:pointer;";
-        overlay.appendChild(zoomImg);
+    <section>
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="topbar">
+          <h2 style="margin:0;">Painel do período</h2>
+          <div class="pill" id="periodoPainel">-</div>
+        </div>
 
-        function showZoomImage(i){ zoomImg.src=imgs[i].src; index=i; }
-        const leftArrow=document.createElement('div');
-        leftArrow.innerHTML='❮';
-        leftArrow.style.cssText=`position:fixed;top:50%;left:20px;transform:translateY(-50%);font-size:3em;color:white;cursor:pointer;z-index:1001;user-select:none;`;
-        const rightArrow=document.createElement('div');
-        rightArrow.innerHTML='❯';
-        rightArrow.style.cssText=`position:fixed;top:50%;right:20px;transform:translateY(-50%);font-size:3em;color:white;cursor:pointer;z-index:1001;user-select:none;`;
-        document.body.appendChild(leftArrow);
-        document.body.appendChild(rightArrow);
+        <div class="grid-4">
+          <div class="metric m1">
+            <h3>Total de quantidade</h3>
+            <strong id="totalQuantidadePeriodo">0</strong>
+          </div>
+          <div class="metric m2">
+            <h3>Total em valor</h3>
+            <strong id="totalValorPeriodo">R$ 0,00</strong>
+          </div>
+          <div class="metric m3">
+            <h3>Serviços lançados</h3>
+            <strong id="totalLancamentosPeriodo">0</strong>
+          </div>
+          <div class="metric m4">
+            <h3>Melhor do período</h3>
+            <strong id="melhorPeriodoResumo">-</strong>
+          </div>
+        </div>
 
-        leftArrow.addEventListener('click', e=>{ e.stopPropagation(); index=(index-1+imgs.length)%imgs.length; showZoomImage(index); });
-        rightArrow.addEventListener('click', e=>{ e.stopPropagation(); index=(index+1)%imgs.length; showZoomImage(index); });
+        <div class="grid-3">
+          <div class="metric m4">
+            <h3>Total de funcionários</h3>
+            <strong id="totalFuncionariosPeriodo">0</strong>
+          </div>
+          <div class="metric m1">
+            <h3>Maior produção em valor</h3>
+            <strong id="liderValorPeriodo">R$ 0,00</strong>
+          </div>
+          <div class="metric m2">
+            <h3>Mês de referência</h3>
+            <strong id="mesReferencia">-</strong>
+          </div>
+        </div>
 
-        overlay.addEventListener('click', ()=>{ overlay.remove(); leftArrow.remove(); rightArrow.remove(); });
-      });
+        <label for="filtroMes">Mês de referência</label>
+        <input id="filtroMes" type="month" />
+
+        <label for="filtroFuncionario">Filtrar funcionário</label>
+        <input id="filtroFuncionario" type="text" placeholder="Digite parte do nome para filtrar" />
+
+        <label for="filtroTipo">Filtrar tipo de serviço</label>
+        <select id="filtroTipo">
+          <option value="">Todos</option>
+          <option value="MONTAGEM">Montagem</option>
+          <option value="SURFACAGEM">Surfaçagem</option>
+          <option value="COLORACAO">Coloração</option>
+        </select>
+
+        <button id="btnAplicarFiltros" class="btn-primary">Aplicar filtros</button>
+        <button id="btnLimparFiltros" class="btn-secondary">Limpar filtros</button>
+      </div>
+
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="topbar">
+          <h2 style="margin:0;">Pódio do período</h2>
+        </div>
+
+        <div class="ranking-top">
+          <div class="podium">
+            <h3>1º lugar</h3>
+            <strong id="podio1Nome">-</strong>
+            <span id="podio1Valor">R$ 0,00</span>
+          </div>
+          <div class="podium">
+            <h3>2º lugar</h3>
+            <strong id="podio2Nome">-</strong>
+            <span id="podio2Valor">R$ 0,00</span>
+          </div>
+          <div class="podium">
+            <h3>3º lugar</h3>
+            <strong id="podio3Nome">-</strong>
+            <span id="podio3Valor">R$ 0,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="topbar">
+          <h2 style="margin:0;">Classificação do período</h2>
+        </div>
+
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Posição</th>
+                <th>Funcionário</th>
+                <th>Montagem</th>
+                <th>Surfaçagem</th>
+                <th>Coloração</th>
+                <th>Quantidade total</th>
+                <th>Valor total</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaRanking">
+              <tr>
+                <td colspan="7" class="empty">Nenhum dado encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="topbar">
+          <h2 style="margin:0;">Histórico de lançamentos</h2>
+        </div>
+
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Funcionário</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Valor unitário</th>
+                <th>Valor total</th>
+                <th>Observação</th>
+                <th>Registrado por</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaLancamentos">
+              <tr>
+                <td colspan="9" class="empty">Nenhum lançamento encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js';
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged
+    } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      doc,
+      deleteDoc,
+      onSnapshot,
+      query,
+      orderBy
+    } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnFRWzsNPi0vXMaBdgJjhgqhlxeiJmfxk",
+      authDomain: "servicos-d0ce7.firebaseapp.com",
+      projectId: "servicos-d0ce7",
+      storageBucket: "servicos-d0ce7.firebasestorage.app",
+      messagingSenderId: "153233190110",
+      appId: "1:153233190110:web:f7a0645e51465d1c01264f",
+      measurementId: "G-V69PFVB2WL"
+    };
+
+    const EMAIL_ADMIN_EXCLUSAO = 'carolline.bhz@gmail.com';
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const btnLogin = document.getElementById('btnLogin');
+    const btnLogout = document.getElementById('btnLogout');
+    const userInfo = document.getElementById('userInfo');
+    const nomeFuncionario = document.getElementById('nomeFuncionario');
+    const dataLancamento = document.getElementById('dataLancamento');
+    const tipoServico = document.getElementById('tipoServico');
+    const quantidade = document.getElementById('quantidade');
+    const valorUnitario = document.getElementById('valorUnitario');
+    const observacao = document.getElementById('observacao');
+    const btnSalvar = document.getElementById('btnSalvar');
+    const btnLimpar = document.getElementById('btnLimpar');
+    const formMessage = document.getElementById('formMessage');
+
+    const filtroMes = document.getElementById('filtroMes');
+    const filtroFuncionario = document.getElementById('filtroFuncionario');
+    const filtroTipo = document.getElementById('filtroTipo');
+    const btnAplicarFiltros = document.getElementById('btnAplicarFiltros');
+    const btnLimparFiltros = document.getElementById('btnLimparFiltros');
+
+    const periodoPainel = document.getElementById('periodoPainel');
+    const totalQuantidadePeriodo = document.getElementById('totalQuantidadePeriodo');
+    const totalValorPeriodo = document.getElementById('totalValorPeriodo');
+    const totalLancamentosPeriodo = document.getElementById('totalLancamentosPeriodo');
+    const melhorPeriodoResumo = document.getElementById('melhorPeriodoResumo');
+    const totalFuncionariosPeriodo = document.getElementById('totalFuncionariosPeriodo');
+    const liderValorPeriodo = document.getElementById('liderValorPeriodo');
+    const mesReferencia = document.getElementById('mesReferencia');
+
+    const podio1Nome = document.getElementById('podio1Nome');
+    const podio1Valor = document.getElementById('podio1Valor');
+    const podio2Nome = document.getElementById('podio2Nome');
+    const podio2Valor = document.getElementById('podio2Valor');
+    const podio3Nome = document.getElementById('podio3Nome');
+    const podio3Valor = document.getElementById('podio3Valor');
+
+    const tabelaRanking = document.getElementById('tabelaRanking');
+    const tabelaLancamentos = document.getElementById('tabelaLancamentos');
+
+    const hoje = new Date();
+    const hojeIso = hoje.toISOString().split('T')[0];
+    const mesAtual = hojeIso.slice(0, 7);
+
+    dataLancamento.value = hojeIso;
+    filtroMes.value = mesAtual;
+    atualizarCabecalhoPeriodo();
+
+    let usuarioAtual = null;
+    let todosLancamentos = [];
+
+    btnLogin.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        mostrarMensagem('Erro ao entrar: ' + error.message, true);
+      }
     });
 
-    container.addEventListener('mouseenter', ()=>clearInterval(interval));
-    container.addEventListener('mouseleave', ()=>interval=setInterval(()=>{ index=(index+1)%imgs.length; showSlide(index); }, intervalMs));
-  }
+    btnLogout.addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        mostrarMensagem('Erro ao sair: ' + error.message, true);
+      }
+    });
 
-  initGalleryWithZoom('bio-gallery');
-  initGalleryWithZoom('post-gallery');
-  initGalleryWithZoom('cartao-gallery');
-</script>
+    btnLimpar.addEventListener('click', limparFormulario);
+    btnAplicarFiltros.addEventListener('click', atualizarTudo);
 
+    btnLimparFiltros.addEventListener('click', () => {
+      filtroMes.value = mesAtual;
+      filtroFuncionario.value = '';
+      filtroTipo.value = '';
+      atualizarTudo();
+    });
+
+    filtroMes.addEventListener('change', atualizarTudo);
+    filtroFuncionario.addEventListener('input', atualizarTudo);
+    filtroTipo.addEventListener('change', atualizarTudo);
+
+    btnSalvar.addEventListener('click', async () => {
+      if (!usuarioAtual) {
+        mostrarMensagem('Faça login antes de salvar.', true);
+        return;
+      }
+
+      const funcionario = nomeFuncionario.value.trim();
+      const data = dataLancamento.value;
+      const tipo = tipoServico.value;
+      const qtd = Number(quantidade.value);
+      const valor = Number(valorUnitario.value);
+      const obs = observacao.value.trim();
+
+      if (!funcionario) {
+        mostrarMensagem('Informe o nome do funcionário.', true);
+        return;
+      }
+
+      if (!data) {
+        mostrarMensagem('Informe a data do lançamento.', true);
+        return;
+      }
+
+      if (!qtd || qtd <= 0) {
+        mostrarMensagem('Informe uma quantidade válida maior que zero.', true);
+        return;
+      }
+
+      if (isNaN(valor) || valor < 0) {
+        mostrarMensagem('Informe um valor unitário válido.', true);
+        return;
+      }
+
+      const valorTotal = qtd * valor;
+
+      try {
+        await addDoc(collection(db, 'servicos_lancamentos'), {
+          funcionario,
+          funcionario_normalizado: normalizarTexto(funcionario),
+          data,
+          periodo: data.slice(0, 7),
+          tipo,
+          quantidade: qtd,
+          valor_unitario: valor,
+          valor_total: valorTotal,
+          observacao: obs,
+          registrado_por_nome: usuarioAtual.displayName || usuarioAtual.email,
+          registrado_por_email: usuarioAtual.email || '',
+          user_uid: usuarioAtual.uid,
+          criado_em: new Date().toISOString()
+        });
+
+        mostrarMensagem('Lançamento salvo com sucesso.');
+        limparFormulario(false);
+      } catch (error) {
+        mostrarMensagem('Erro ao salvar: ' + error.message, true);
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      usuarioAtual = user;
+
+      if (user) {
+        btnLogin.style.display = 'none';
+        btnLogout.style.display = 'block';
+        userInfo.textContent = `Logado como: ${user.displayName || 'Usuário'} (${user.email || 'sem email'})`;
+      } else {
+        btnLogin.style.display = 'block';
+        btnLogout.style.display = 'none';
+        userInfo.textContent = 'Faça login para registrar e visualizar os dados.';
+      }
+
+      atualizarHistorico();
+    });
+
+    const q = query(
+      collection(db, 'servicos_lancamentos'),
+      orderBy('data', 'desc')
+    );
+
+    onSnapshot(q, (snapshot) => {
+      todosLancamentos = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      atualizarTudo();
+    }, (error) => {
+      mostrarMensagem('Erro ao carregar lançamentos: ' + error.message, true);
+    });
+
+    function atualizarTudo() {
+      atualizarCabecalhoPeriodo();
+      atualizarPainel();
+      atualizarRanking();
+      atualizarHistorico();
+    }
+
+    function atualizarCabecalhoPeriodo() {
+      periodoPainel.textContent = filtroMes.value ? formatarMesAno(filtroMes.value) : '-';
+      mesReferencia.textContent = filtroMes.value ? formatarMesAno(filtroMes.value) : '-';
+    }
+
+    function obterLancamentosFiltrados() {
+      const periodo = filtroMes.value;
+      const nomeFiltro = normalizarTexto(filtroFuncionario.value || '');
+      const tipoFiltro = filtroTipo.value || '';
+
+      return todosLancamentos.filter(item => {
+        const periodoOk = !periodo || item.periodo === periodo;
+        const nomeOk = !nomeFiltro || (item.funcionario_normalizado || '').includes(nomeFiltro);
+        const tipoOk = !tipoFiltro || item.tipo === tipoFiltro;
+        return periodoOk && nomeOk && tipoOk;
+      });
+    }
+
+    function atualizarPainel() {
+      const dados = obterLancamentosFiltrados();
+
+      const totalQuantidade = dados.reduce((acc, item) => acc + Number(item.quantidade || 0), 0);
+      const totalValor = dados.reduce((acc, item) => acc + Number(item.valor_total || 0), 0);
+      const totalLancamentos = dados.length;
+
+      const funcionarios = [...new Set(dados.map(item => item.funcionario_normalizado).filter(Boolean))];
+      const ranking = construirRanking(dados);
+      const melhor = ranking[0] || null;
+
+      totalQuantidadePeriodo.textContent = totalQuantidade;
+      totalValorPeriodo.textContent = formatarMoeda(totalValor);
+      totalLancamentosPeriodo.textContent = totalLancamentos;
+      totalFuncionariosPeriodo.textContent = funcionarios.length;
+      melhorPeriodoResumo.textContent = melhor ? melhor.funcionario : '-';
+      liderValorPeriodo.textContent = melhor ? formatarMoeda(melhor.valorTotal) : 'R$ 0,00';
+    }
+
+    function construirRanking(lista) {
+      const mapa = {};
+
+      for (const item of lista) {
+        const chave = item.funcionario_normalizado || normalizarTexto(item.funcionario || '');
+        if (!chave) continue;
+
+        if (!mapa[chave]) {
+          mapa[chave] = {
+            funcionario: item.funcionario || '-',
+            funcionario_normalizado: chave,
+            montagem: 0,
+            surfacagem: 0,
+            coloracao: 0,
+            quantidadeTotal: 0,
+            valorTotal: 0
+          };
+        }
+
+        const qtd = Number(item.quantidade || 0);
+        const valor = Number(item.valor_total || 0);
+
+        if (item.tipo === 'MONTAGEM') mapa[chave].montagem += qtd;
+        if (item.tipo === 'SURFACAGEM') mapa[chave].surfacagem += qtd;
+        if (item.tipo === 'COLORACAO') mapa[chave].coloracao += qtd;
+
+        mapa[chave].quantidadeTotal += qtd;
+        mapa[chave].valorTotal += valor;
+      }
+
+      return Object.values(mapa).sort((a, b) => {
+        if (b.valorTotal !== a.valorTotal) return b.valorTotal - a.valorTotal;
+        if (b.quantidadeTotal !== a.quantidadeTotal) return b.quantidadeTotal - a.quantidadeTotal;
+        return a.funcionario.localeCompare(b.funcionario, 'pt-BR');
+      });
+    }
+
+    function atualizarRanking() {
+      const dados = obterLancamentosFiltrados();
+      const ranking = construirRanking(dados);
+
+      atualizarPodio(ranking);
+      atualizarTabelaRanking(ranking);
+    }
+
+    function atualizarPodio(ranking) {
+      const pos1 = ranking[0];
+      const pos2 = ranking[1];
+      const pos3 = ranking[2];
+
+      podio1Nome.textContent = pos1 ? pos1.funcionario : '-';
+      podio1Valor.textContent = pos1 ? formatarMoeda(pos1.valorTotal) : 'R$ 0,00';
+
+      podio2Nome.textContent = pos2 ? pos2.funcionario : '-';
+      podio2Valor.textContent = pos2 ? formatarMoeda(pos2.valorTotal) : 'R$ 0,00';
+
+      podio3Nome.textContent = pos3 ? pos3.funcionario : '-';
+      podio3Valor.textContent = pos3 ? formatarMoeda(pos3.valorTotal) : 'R$ 0,00';
+    }
+
+    function atualizarTabelaRanking(ranking) {
+      if (!ranking.length) {
+        tabelaRanking.innerHTML = '<tr><td colspan="7" class="empty">Nenhum dado encontrado.</td></tr>';
+        return;
+      }
+
+      tabelaRanking.innerHTML = ranking.map((item, index) => `
+        <tr>
+          <td>${index + 1}º</td>
+          <td>${escapeHtml(item.funcionario)}</td>
+          <td>${item.montagem}</td>
+          <td>${item.surfacagem}</td>
+          <td>${item.coloracao}</td>
+          <td>${item.quantidadeTotal}</td>
+          <td class="money">${formatarMoeda(item.valorTotal)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function atualizarHistorico() {
+      const lancamentos = obterLancamentosFiltrados();
+      const podeExcluir = usuarioAtual?.email?.toLowerCase() === EMAIL_ADMIN_EXCLUSAO;
+
+      if (!lancamentos.length) {
+        tabelaLancamentos.innerHTML = '<tr><td colspan="9" class="empty">Nenhum lançamento encontrado.</td></tr>';
+        return;
+      }
+
+      tabelaLancamentos.innerHTML = lancamentos.map(item => {
+        const tipoClasse = obterClasseTipo(item.tipo);
+        const tipoLabel = obterLabelTipo(item.tipo);
+
+        const botaoExcluir = podeExcluir
+          ? `<button class="btn-danger" onclick="window.excluirLancamento('${item.id}')">Excluir</button>`
+          : `<button class="btn-secondary" disabled title="Somente ${EMAIL_ADMIN_EXCLUSAO} pode excluir.">Sem permissão</button>`;
+
+        return `
+          <tr>
+            <td>${formatarData(item.data)}</td>
+            <td>${escapeHtml(item.funcionario || '-')}</td>
+            <td><span class="status ${tipoClasse}">${tipoLabel}</span></td>
+            <td>${Number(item.quantidade || 0)}</td>
+            <td>${formatarMoeda(Number(item.valor_unitario || 0))}</td>
+            <td class="money">${formatarMoeda(Number(item.valor_total || 0))}</td>
+            <td>${escapeHtml(item.observacao || '-')}</td>
+            <td>${escapeHtml(item.registrado_por_nome || item.registrado_por_email || '-')}</td>
+            <td><div class="actions">${botaoExcluir}</div></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function obterClasseTipo(tipo) {
+      if (tipo === 'MONTAGEM') return 'status-montagem';
+      if (tipo === 'SURFACAGEM') return 'status-surfacagem';
+      if (tipo === 'COLORACAO') return 'status-coloracao';
+      return '';
+    }
+
+    function obterLabelTipo(tipo) {
+      if (tipo === 'MONTAGEM') return 'Montagem';
+      if (tipo === 'SURFACAGEM') return 'Surfaçagem';
+      if (tipo === 'COLORACAO') return 'Coloração';
+      return tipo || '-';
+    }
+
+    function mostrarMensagem(texto, erro = false) {
+      formMessage.textContent = texto;
+      formMessage.className = 'message ' + (erro ? 'error' : 'ok');
+    }
+
+    function limparFormulario(limparData = true) {
+      nomeFuncionario.value = '';
+      tipoServico.value = 'MONTAGEM';
+      quantidade.value = '';
+      valorUnitario.value = '';
+      observacao.value = '';
+      if (limparData) dataLancamento.value = hojeIso;
+    }
+
+    function formatarData(dataIso) {
+      if (!dataIso) return '-';
+      const [ano, mes, dia] = dataIso.split('-');
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    function formatarMesAno(valor) {
+      if (!valor) return '-';
+      const [ano, mes] = valor.split('-');
+      const nomes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      return `${nomes[Number(mes) - 1] || mes}/${ano}`;
+    }
+
+    function formatarMoeda(valor) {
+      return Number(valor || 0).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+    function normalizarTexto(texto) {
+      return String(texto || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+    }
+
+    function escapeHtml(texto) {
+      return String(texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.excluirLancamento = async function(id) {
+      const emailAtual = usuarioAtual?.email?.toLowerCase() || '';
+      if (emailAtual !== EMAIL_ADMIN_EXCLUSAO) {
+        mostrarMensagem(`Somente ${EMAIL_ADMIN_EXCLUSAO} pode excluir lançamentos.`, true);
+        return;
+      }
+
+      const confirmar = confirm('Deseja realmente excluir este lançamento?');
+      if (!confirmar) return;
+
+      try {
+        await deleteDoc(doc(db, 'servicos_lancamentos', id));
+        mostrarMensagem('Lançamento excluído com sucesso.');
+      } catch (error) {
+        mostrarMensagem('Erro ao excluir: ' + error.message, true);
+      }
+    };
+  </script>
 </body>
 </html>
